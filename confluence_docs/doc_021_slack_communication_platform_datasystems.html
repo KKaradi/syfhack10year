@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slack Communication Platform</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #f8f9fa; padding: 15px; border-radius: 5px; }
+        .content { margin: 20px 0; }
+        .section { margin: 15px 0; }
+        .resource-list { list-style-type: none; padding: 0; }
+        .resource-item { background: #f1f3f4; margin: 5px 0; padding: 10px; border-radius: 3px; }
+        .access-req { color: #d93025; font-weight: bold; }
+        .endpoint { color: #1a73e8; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Slack Communication Platform</h1>
+        <p><strong>Document Type:</strong> Communication</p>
+        <p><strong>Last Updated:</strong> 2024-01-22</p>
+        <p><strong>Owner:</strong> DataSystems Tools Team</p>
+    </div>
+    
+    <div class="content">
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Documentation for Slack Communication Platform in Staging environment at DataSystems.</p>
+        </div>
+        
+        
+        <div class="section">
+            <h2>Resources and Tools</h2>
+            <ul class="resource-list">
+                
+                <li class="resource-item">
+                    <h3>Slack Workspace</h3>
+                    <p><strong>Type:</strong> platform</p>
+                    <p><strong>Description:</strong> Team communication and collaboration platform</p>
+                    
+                    
+                    <p class="access-req"><strong>Access Requirements:</strong></p>
+                    <ul>
+                        
+                        <li>Slack account</li>
+                        
+                        <li>Workspace invitation</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>API Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://slack.com/api/chat.postMessage</li>
+                        
+                        <li class="endpoint">https://slack.com/api/users.list</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>Dependencies:</strong> Single Sign-On</p>
+                    
+                    
+                    
+                </li>
+                
+            </ul>
+        </div>
+        
+        
+        
+        <div class="section">
+            <h2>Databases</h2>
+            <ul class="resource-list">
+                
+                <li class="resource-item">
+                    <h3>DataSystems MySQL Database</h3>
+                    <p><strong>Type:</strong> MySQL</p>
+                    <p><strong>Description:</strong> MySQL database for staging environment</p>
+                    <p><strong>Connection String:</strong> <code>mysql://datasystems-staging.db.company.com</code></p>
+                    <p class="access-req"><strong>Access:</strong> Database credentials, VPN access, Environment permissions</p>
+                </li>
+                
+            </ul>
+        </div>
+        
+        
+        
+        <div class="section">
+            <h2>Services</h2>
+            <ul class="resource-list">
+                
+                <li class="resource-item">
+                    <h3>DataSystems API Gateway</h3>
+                    <p><strong>Description:</strong> API gateway for staging environment</p>
+                    <p><strong>Environment:</strong> Staging</p>
+                    
+                    <p><strong>Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://api-staging.datasystems.com/v1</li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        
+    </div>
+</body>
+</html>

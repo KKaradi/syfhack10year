@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Microsoft Azure Cloud Infrastructure</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #f8f9fa; padding: 15px; border-radius: 5px; }
+        .content { margin: 20px 0; }
+        .section { margin: 15px 0; }
+        .resource-list { list-style-type: none; padding: 0; }
+        .resource-item { background: #f1f3f4; margin: 5px 0; padding: 10px; border-radius: 3px; }
+        .access-req { color: #d93025; font-weight: bold; }
+        .endpoint { color: #1a73e8; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Microsoft Azure Cloud Infrastructure</h1>
+        <p><strong>Document Type:</strong> Cloud Infrastructure</p>
+        <p><strong>Last Updated:</strong> 2024-01-18</p>
+        <p><strong>Owner:</strong> Cloud Architecture Team</p>
+    </div>
+    
+    <div class="content">
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Documentation for Microsoft Azure cloud services, including compute, storage, networking, and security configurations.</p>
+        </div>
+        
+        
+        <div class="section">
+            <h2>Resources and Tools</h2>
+            <ul class="resource-list">
+                
+                <li class="resource-item">
+                    <h3>Azure Active Directory</h3>
+                    <p><strong>Type:</strong> service</p>
+                    <p><strong>Description:</strong> Identity and access management service for Azure and Microsoft 365</p>
+                    
+                    
+                    <p class="access-req"><strong>Access Requirements:</strong></p>
+                    <ul>
+                        
+                        <li>Azure AD license</li>
+                        
+                        <li>Global administrator role</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>API Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://graph.microsoft.com/v1.0/users</li>
+                        
+                        <li class="endpoint">https://graph.microsoft.com/v1.0/groups</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>Dependencies:</strong> Microsoft 365 subscription</p>
+                    
+                    
+                    
+                    <p><strong>Documentation:</strong> <a href="https://docs.microsoft.com/azure/active-directory">https://docs.microsoft.com/azure/active-directory</a></p>
+                    
+                </li>
+                
+                <li class="resource-item">
+                    <h3>Azure SQL Database</h3>
+                    <p><strong>Type:</strong> database</p>
+                    <p><strong>Description:</strong> Managed SQL database service in Azure cloud</p>
+                    
+                    
+                    <p class="access-req"><strong>Access Requirements:</strong></p>
+                    <ul>
+                        
+                        <li>Azure subscription</li>
+                        
+                        <li>SQL Server authentication</li>
+                        
+                        <li>Firewall rules</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>API Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://management.azure.com/subscriptions/{id}/providers/Microsoft.Sql</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>Dependencies:</strong> Azure Resource Group, Virtual Network</p>
+                    
+                    
+                    
+                    <p><strong>Documentation:</strong> <a href="https://docs.microsoft.com/azure/sql-database">https://docs.microsoft.com/azure/sql-database</a></p>
+                    
+                </li>
+                
+                <li class="resource-item">
+                    <h3>Azure Key Vault</h3>
+                    <p><strong>Type:</strong> service</p>
+                    <p><strong>Description:</strong> Secure storage for keys, secrets, and certificates</p>
+                    
+                    
+                    <p class="access-req"><strong>Access Requirements:</strong></p>
+                    <ul>
+                        
+                        <li>Key Vault access policy</li>
+                        
+                        <li>Azure AD authentication</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>API Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://{vault-name}.vault.azure.net/secrets</li>
+                        
+                        <li class="endpoint">https://{vault-name}.vault.azure.net/keys</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>Dependencies:</strong> Azure Active Directory</p>
+                    
+                    
+                    
+                    <p><strong>Documentation:</strong> <a href="https://docs.microsoft.com/azure/key-vault">https://docs.microsoft.com/azure/key-vault</a></p>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        
+        
+        
+        <div class="section">
+            <h2>Databases</h2>
+            <ul class="resource-list">
+                
+                <li class="resource-item">
+                    <h3>Azure SQL Production</h3>
+                    <p><strong>Type:</strong> SQL Database</p>
+                    <p><strong>Description:</strong> Production SQL database for application data</p>
+                    <p><strong>Connection String:</strong> <code>Server=company-prod.database.windows.net;Database=AppDB;</code></p>
+                    <p class="access-req"><strong>Access:</strong> SQL authentication, Azure AD integrated</p>
+                </li>
+                
+            </ul>
+        </div>
+        
+        
+        
+        <div class="section">
+            <h2>Services</h2>
+            <ul class="resource-list">
+                
+                <li class="resource-item">
+                    <h3>Azure App Service</h3>
+                    <p><strong>Description:</strong> Web application hosting service</p>
+                    <p><strong>Environment:</strong> Production</p>
+                    
+                    <p><strong>Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://company-app.azurewebsites.net</li>
+                        
+                        <li class="endpoint">https://company-api.azurewebsites.net</li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        
+    </div>
+</body>
+</html>

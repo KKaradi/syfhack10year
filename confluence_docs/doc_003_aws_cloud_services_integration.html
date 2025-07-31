@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AWS Cloud Services Integration</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #f8f9fa; padding: 15px; border-radius: 5px; }
+        .content { margin: 20px 0; }
+        .section { margin: 15px 0; }
+        .resource-list { list-style-type: none; padding: 0; }
+        .resource-item { background: #f1f3f4; margin: 5px 0; padding: 10px; border-radius: 3px; }
+        .access-req { color: #d93025; font-weight: bold; }
+        .endpoint { color: #1a73e8; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AWS Cloud Services Integration</h1>
+        <p><strong>Document Type:</strong> Cloud Infrastructure</p>
+        <p><strong>Last Updated:</strong> 2024-01-12</p>
+        <p><strong>Owner:</strong> DevOps Team</p>
+    </div>
+    
+    <div class="content">
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Amazon Web Services integration guide covering EC2, S3, RDS, Lambda, and other core AWS services.</p>
+        </div>
+        
+        
+        <div class="section">
+            <h2>Resources and Tools</h2>
+            <ul class="resource-list">
+                
+                <li class="resource-item">
+                    <h3>AWS EC2</h3>
+                    <p><strong>Type:</strong> service</p>
+                    <p><strong>Description:</strong> Elastic Compute Cloud for scalable virtual servers</p>
+                    
+                    
+                    <p class="access-req"><strong>Access Requirements:</strong></p>
+                    <ul>
+                        
+                        <li>AWS account</li>
+                        
+                        <li>IAM role</li>
+                        
+                        <li>EC2 keypair</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>API Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://ec2.amazonaws.com</li>
+                        
+                        <li class="endpoint">https://ec2.us-east-1.amazonaws.com</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>Dependencies:</strong> VPC, Security Groups</p>
+                    
+                    
+                    
+                    <p><strong>Documentation:</strong> <a href="https://docs.aws.amazon.com/ec2">https://docs.aws.amazon.com/ec2</a></p>
+                    
+                </li>
+                
+                <li class="resource-item">
+                    <h3>AWS S3</h3>
+                    <p><strong>Type:</strong> service</p>
+                    <p><strong>Description:</strong> Simple Storage Service for object storage and static website hosting</p>
+                    
+                    
+                    <p class="access-req"><strong>Access Requirements:</strong></p>
+                    <ul>
+                        
+                        <li>S3 bucket permissions</li>
+                        
+                        <li>IAM policy</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>API Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://s3.amazonaws.com</li>
+                        
+                        <li class="endpoint">https://s3.us-east-1.amazonaws.com</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>Dependencies:</strong> IAM roles</p>
+                    
+                    
+                    
+                    <p><strong>Documentation:</strong> <a href="https://docs.aws.amazon.com/s3">https://docs.aws.amazon.com/s3</a></p>
+                    
+                </li>
+                
+                <li class="resource-item">
+                    <h3>AWS Lambda</h3>
+                    <p><strong>Type:</strong> service</p>
+                    <p><strong>Description:</strong> Serverless compute service for running code without managing servers</p>
+                    
+                    
+                    <p class="access-req"><strong>Access Requirements:</strong></p>
+                    <ul>
+                        
+                        <li>Lambda execution role</li>
+                        
+                        <li>Function permissions</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>API Endpoints:</strong></p>
+                    <ul>
+                        
+                        <li class="endpoint">https://lambda.amazonaws.com</li>
+                        
+                        <li class="endpoint">https://lambda.us-east-1.amazonaws.com</li>
+                        
+                    </ul>
+                    
+                    
+                    
+                    <p><strong>Dependencies:</strong> IAM roles, CloudWatch</p>
+                    
+                    
+                    
+                    <p><strong>Documentation:</strong> <a href="https://docs.aws.amazon.com/lambda">https://docs.aws.amazon.com/lambda</a></p>
+                    
+                </li>
+                
+            </ul>
+        </div>
+        
+        
+        
+        <div class="section">
+            <h2>Databases</h2>
+            <ul class="resource-list">
+                
+                <li class="resource-item">
+                    <h3>AWS RDS PostgreSQL</h3>
+                    <p><strong>Type:</strong> Relational Database</p>
+                    <p><strong>Description:</strong> Managed PostgreSQL database in AWS RDS</p>
+                    <p><strong>Connection String:</strong> <code>postgresql://company-db.cluster-xyz.us-east-1.rds.amazonaws.com:5432/appdb</code></p>
+                    <p class="access-req"><strong>Access:</strong> Database credentials, VPC access, Security group rules</p>
+                </li>
+                
+            </ul>
+        </div>
+        
+        
+        
+    </div>
+</body>
+</html>

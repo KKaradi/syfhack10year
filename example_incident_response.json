@@ -1,0 +1,12 @@
+{
+  "automation_id": "error_automation",
+  "title": "Error in Generation",
+  "description": "Failed to generate automation steps",
+  "created_at": "2025-07-31 15:12:51.070719",
+  "steps": [],
+  "total_steps": 0,
+  "estimated_total_duration": "Unknown",
+  "required_tools": [],
+  "required_databases": [],
+  "required_resources": []
+}
