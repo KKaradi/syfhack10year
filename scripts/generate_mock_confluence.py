@@ -77,6 +77,22 @@ CONFLUENCE_TEMPLATE = """
                         {% if resource.owner_email %} &lt;{{ resource.owner_email }}&gt;{% endif %}
                     </p>
                     {% endif %}
+                    
+                    {% if resource.programming_languages %}
+                    <p><strong>Programming Languages:</strong> {{ resource.programming_languages | join(', ') }}</p>
+                    {% endif %}
+                    
+                    {% if resource.development_frameworks %}
+                    <p><strong>Development Frameworks:</strong> {{ resource.development_frameworks | join(', ') }}</p>
+                    {% endif %}
+                    
+                    {% if resource.recommended_ide %}
+                    <p><strong>Recommended IDE:</strong> {{ resource.recommended_ide }}</p>
+                    {% endif %}
+                    
+                    {% if resource.testing_frameworks %}
+                    <p><strong>Testing Frameworks:</strong> {{ resource.testing_frameworks | join(', ') }}</p>
+                    {% endif %}
                 </li>
                 {% endfor %}
             </ul>
@@ -152,7 +168,11 @@ MOCK_DATA = [
                 "dependencies": ["Active Directory", "LDAP"],
                 "documentation_url": "https://company.service-now.com/kb",
                 "owner_name": "Sarah Johnson",
-                "owner_email": "sarah.johnson@company.com"
+                "owner_email": "sarah.johnson@company.com",
+                "programming_languages": ["Python", "JavaScript", "PowerShell"],
+                "development_frameworks": ["pysnow", "ServiceNow REST API", "ServiceNow Scripted REST APIs"],
+                "recommended_ide": "VS Code with ServiceNow extension",
+                "testing_frameworks": ["pytest", "Postman", "ServiceNow ATF"]
             },
             {
                 "name": "ServiceNow REST API",
@@ -196,7 +216,11 @@ MOCK_DATA = [
                 "dependencies": ["SSL certificate", "Merchant bank account"],
                 "documentation_url": "https://developer.fiserv.com/product/FirstAPI",
                 "owner_name": "Michael Chen",
-                "owner_email": "michael.chen@company.com"
+                "owner_email": "michael.chen@company.com",
+                "programming_languages": ["Python", "Java", "Node.js", "C#"],
+                "development_frameworks": ["requests", "pydantic", "cryptography", "Fiserv SDK"],
+                "recommended_ide": "VS Code with Thunder Client for API testing",
+                "testing_frameworks": ["pytest", "JUnit", "Jest", "NUnit"]
             },
             {
                 "name": "Fiserv Fraud Detection",
@@ -240,7 +264,11 @@ MOCK_DATA = [
                 "dependencies": ["Microsoft 365 subscription"],
                 "documentation_url": "https://docs.microsoft.com/azure/active-directory",
                 "owner_name": "Emily Rodriguez",
-                "owner_email": "emily.rodriguez@company.com"
+                "owner_email": "emily.rodriguez@company.com",
+                "programming_languages": ["Python", "PowerShell", "C#", "TypeScript"],
+                "development_frameworks": ["azure-identity", "azure-mgmt-*", "Azure CLI", "Azure PowerShell"],
+                "recommended_ide": "VS Code with Azure extensions",
+                "testing_frameworks": ["pytest", "Pester", "Azure Test Plans"]
             },
             {
                 "name": "Azure SQL Database",
@@ -432,6 +460,40 @@ def generate_owner_info(resource_name: str, resource_type: str) -> dict:
         "owner_email": email
     }
 
+def generate_dev_environment_info(resource_type: str) -> dict:
+    """Generate development environment information based on resource type."""
+    
+    # Development environment mappings by resource type
+    dev_environments = {
+        "tool": {
+            "programming_languages": ["Python", "JavaScript", "TypeScript"],
+            "development_frameworks": ["FastAPI", "Express.js", "React"],
+            "recommended_ide": "VS Code with relevant extensions",
+            "testing_frameworks": ["pytest", "Jest", "Cypress"]
+        },
+        "service": {
+            "programming_languages": ["Python", "Java", "Node.js", "Go"],
+            "development_frameworks": ["requests", "Spring Boot", "Express.js", "Gin"],
+            "recommended_ide": "VS Code or IntelliJ IDEA",
+            "testing_frameworks": ["pytest", "JUnit", "Jest", "Testify"]
+        },
+        "database": {
+            "programming_languages": ["Python", "Java", "C#", "JavaScript"],
+            "development_frameworks": ["SQLAlchemy", "Hibernate", "Entity Framework", "Prisma"],
+            "recommended_ide": "DataGrip or VS Code with SQL extensions",
+            "testing_frameworks": ["pytest", "JUnit", "NUnit", "Jest"]
+        },
+        "platform": {
+            "programming_languages": ["Python", "PowerShell", "Bash", "Terraform"],
+            "development_frameworks": ["Terraform", "Ansible", "CloudFormation", "ARM Templates"],
+            "recommended_ide": "VS Code with cloud provider extensions",
+            "testing_frameworks": ["Terratest", "Pester", "Ansible Molecule", "pytest"]
+        }
+    }
+    
+    # Default to service if type not found
+    return dev_environments.get(resource_type.lower(), dev_environments["service"])
+
 def generate_confluence_documents():
     """Generate 100 mock confluence HTML documents."""
     
@@ -480,6 +542,11 @@ def generate_confluence_documents():
                 if "owner_name" not in resource:
                     owner_info = generate_owner_info(resource["name"], resource["type"])
                     resource.update(owner_info)
+                
+                # Add development environment info if not present
+                if "programming_languages" not in resource:
+                    dev_info = generate_dev_environment_info(resource["type"])
+                    resource.update(dev_info)
         
         # Add database if not present
         if "databases" not in template_data:

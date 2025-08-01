@@ -24,6 +24,8 @@ class AutomationStep(BaseModel):
     dependencies: List[str]
     access_request_emails: List[Dict[str, str]]  # List of {"email": "owner@company.com", "subject": "...", "body": "..."}
     resource_owners: List[Dict[str, str]]  # List of {"resource": "Database Name", "owner_email": "owner@company.com"}
+    development_environment: Dict[str, Any]  # Development environment recommendations
+    starter_script_path: Optional[str]  # Path to relevant starter script
 
 class AutomationResponse(BaseModel):
     automation_id: str

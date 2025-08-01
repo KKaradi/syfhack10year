@@ -113,12 +113,20 @@ class GeminiClient:
                             "body": "Professional email requesting access to the specific resource for automation purposes"
                         }}
                     ],
-                    "resource_owners": [
-                        {{
-                            "resource": "Database/Resource Name",
-                            "owner_email": "owner@company.com"
-                        }}
-                    ]
+                                         "resource_owners": [
+                         {{
+                             "resource": "Database/Resource Name",
+                             "owner_email": "owner@company.com"
+                         }}
+                     ],
+                     "development_environment": {{
+                         "programming_languages": ["Python", "JavaScript"],
+                         "frameworks": ["FastAPI", "requests"],
+                         "recommended_ide": "VS Code with extensions",
+                         "testing_frameworks": ["pytest", "Jest"],
+                         "deployment_tools": ["Docker", "CI/CD pipeline"]
+                     }},
+                     "starter_script_path": "starter_scripts/servicenow_automation.py"
                 }}
             ],
             "total_steps": 5,
@@ -130,7 +138,7 @@ class GeminiClient:
         
         Ensure the workflow is logical, efficient, and uses the available company resources appropriately.
         
-        For each step that requires database or resource access:
+                 For each step that requires database or resource access:
         1. Extract the owner email from the available company resources
         2. Generate a professional access request email with:
            - Clear subject line mentioning the specific resource
@@ -141,6 +149,13 @@ class GeminiClient:
            - Contact information for questions
            - Professional closing
         3. Include the resource name and owner email in the resource_owners array
+        4. Recommend appropriate development environment based on the tools/resources used:
+           - Programming languages best suited for the task
+           - Frameworks and libraries for integration
+           - Recommended IDE and extensions
+           - Testing frameworks for validation
+           - Deployment and orchestration tools
+        5. Reference appropriate starter scripts from: servicenow_automation.py, fiserv_payment_automation.py, azure_cloud_automation.py, aws_cloud_automation.py
         """
         
         try:
