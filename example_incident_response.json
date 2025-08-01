@@ -1,12 +1,281 @@
 {
-  "automation_id": "error_automation",
-  "title": "Error in Generation",
-  "description": "Failed to generate automation steps",
-  "created_at": "2025-07-31 15:12:51.070719",
-  "steps": [],
-  "total_steps": 0,
-  "estimated_total_duration": "Unknown",
-  "required_tools": [],
+  "automation_id": "IT_Incident_Response_Automation_001",
+  "title": "Automated Critical IT Incident Response",
+  "description": "Automates critical IT incident response by detecting system alerts, creating ServiceNow incidents, notifying the on-call team via Slack, spinning up additional AWS resources if needed, and escalating to management if not resolved within SLA timeframes.",
+  "created_at": "2025-08-01 06:42:49.060727",
+  "steps": [
+    {
+      "step_id": "step_1",
+      "step_name": "Detect Critical System Alert",
+      "description": "Detects critical system alerts from various sources (AWS CloudWatch, user-reported P1 incidents, monitoring system failures).",
+      "tool": "AWS CloudWatch, Manual User Input (via form or dedicated channel), Monitoring System (e.g., Datadog, Prometheus)",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [],
+      "automation_details": "Configure CloudWatch alarms for critical metrics. Implement an API endpoint for receiving user-reported incidents. Integrate with monitoring system to pull failure alerts.",
+      "starting_points": [
+        "CloudWatch Alarm State Change",
+        "User-reported P1 Incident",
+        "Monitoring System Alert"
+      ],
+      "next_step": "step_2",
+      "estimated_duration": "2 minutes",
+      "dependencies": [],
+      "access_request_emails": [],
+      "resource_owners": [],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "Flask",
+          "Boto3"
+        ],
+        "recommended_ide": "VS Code with AWS Toolkit",
+        "testing_frameworks": [
+          "pytest"
+        ],
+        "deployment_tools": [
+          "AWS Lambda",
+          "Docker"
+        ]
+      },
+      "starter_script_path": "aws_cloud_automation.py"
+    },
+    {
+      "step_id": "step_2",
+      "step_name": "Create ServiceNow Incident",
+      "description": "Creates a ServiceNow incident with appropriate priority based on the alert type.",
+      "tool": "ServiceNow API",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [
+        "ServiceNow API Access",
+        "ServiceNow User Account with Incident Creation Permissions"
+      ],
+      "automation_details": "Use the ServiceNow API to create a new incident. Map alert types to incident priority levels. Populate incident fields with relevant information from the alert (e.g., affected system, description, severity).",
+      "starting_points": [
+        "Alert from Step 1"
+      ],
+      "next_step": "step_3",
+      "estimated_duration": "3 minutes",
+      "dependencies": [
+        "Step 1"
+      ],
+      "access_request_emails": [
+        {
+          "email": "servicenow_admin@company.com",
+          "subject": "Access Request for ServiceNow API - Incident Creation",
+          "body": "Dear ServiceNow Administrator,\n\nWe are implementing an automated incident response system to improve our incident handling efficiency.\n\nTo enable this automation, we require access to the ServiceNow API with permissions to create new incidents. Specifically, we need a user account (or an API key) with the `itil` role and the ability to create incidents on behalf of the system.\n\nThis access is critical for automating the creation of high-priority incidents based on system alerts.\n\nPlease grant the necessary access to the user account dedicated for this automation.\n\nIf you have any questions, please do not hesitate to contact me.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "ServiceNow API",
+          "owner_email": "servicenow_admin@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "requests"
+        ],
+        "recommended_ide": "VS Code with Python extension",
+        "testing_frameworks": [
+          "unittest"
+        ],
+        "deployment_tools": [
+          "Serverless Functions",
+          "Docker"
+        ]
+      },
+      "starter_script_path": "servicenow_automation.py"
+    },
+    {
+      "step_id": "step_3",
+      "step_name": "Notify On-Call Team via Slack",
+      "description": "Notifies the on-call team via Slack with the incident details.",
+      "tool": "Slack API",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [
+        "Slack API Token",
+        "Slack Channel Access"
+      ],
+      "automation_details": "Use the Slack API to send a message to the designated on-call team's Slack channel. Include the incident number, description, severity, and a link to the ServiceNow incident.",
+      "starting_points": [
+        "Incident Creation from Step 2"
+      ],
+      "next_step": "step_4",
+      "estimated_duration": "2 minutes",
+      "dependencies": [
+        "Step 2"
+      ],
+      "access_request_emails": [
+        {
+          "email": "slack_admin@company.com",
+          "subject": "Access Request for Slack API - Incident Notification",
+          "body": "Dear Slack Administrator,\n\nWe are implementing an automated incident response system to improve our incident handling efficiency.\n\nTo enable this automation, we require a Slack API token with permissions to send messages to the designated on-call channel. We also need to ensure that the automation user has access to post messages in the specified channel.\n\nThis access is critical for notifying the on-call team about newly created incidents.\n\nPlease provide the necessary API token and channel access.\n\nIf you have any questions, please do not hesitate to contact me.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Slack API",
+          "owner_email": "slack_admin@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "slack_sdk"
+        ],
+        "recommended_ide": "VS Code with Python extension",
+        "testing_frameworks": [
+          "unittest"
+        ],
+        "deployment_tools": [
+          "Serverless Functions",
+          "Docker"
+        ]
+      },
+      "starter_script_path": "servicenow_automation.py"
+    },
+    {
+      "step_id": "step_4",
+      "step_name": "Auto-Provision AWS Resources (Conditional)",
+      "description": "If system load exceeds pre-defined thresholds, automatically provision additional AWS resources (e.g., EC2 instances, RDS read replicas).",
+      "tool": "AWS Auto Scaling, AWS CloudFormation, AWS API (Boto3)",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [
+        "AWS IAM Role with Auto Scaling Permissions",
+        "CloudFormation Execution Role"
+      ],
+      "automation_details": "Monitor system load metrics (e.g., CPU utilization, memory usage, request latency) using CloudWatch. If thresholds are exceeded, trigger AWS Auto Scaling to scale out the environment or deploy a CloudFormation stack to provision new resources.",
+      "starting_points": [
+        "Alert from Step 1",
+        "System Load Metrics exceeding threshold"
+      ],
+      "next_step": "step_5",
+      "estimated_duration": "15 minutes",
+      "dependencies": [
+        "Step 1",
+        "Step 3"
+      ],
+      "access_request_emails": [
+        {
+          "email": "aws_admin@company.com",
+          "subject": "Access Request for AWS Auto Scaling and CloudFormation",
+          "body": "Dear AWS Administrator,\n\nWe are implementing an automated incident response system to improve our system resilience.\n\nTo enable this automation, we require an AWS IAM role with permissions to manage Auto Scaling groups and deploy CloudFormation stacks. This role will be used to automatically scale out the environment or provision new resources based on system load.\n\nThis access is critical for maintaining system performance during peak load or incidents.\n\nPlease grant the necessary permissions to the designated IAM role.\n\nIf you have any questions, please do not hesitate to contact me.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "AWS Auto Scaling",
+          "owner_email": "aws_admin@company.com"
+        },
+        {
+          "resource": "AWS CloudFormation",
+          "owner_email": "aws_admin@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "Boto3"
+        ],
+        "recommended_ide": "VS Code with AWS Toolkit",
+        "testing_frameworks": [
+          "unittest"
+        ],
+        "deployment_tools": [
+          "AWS Lambda",
+          "Docker"
+        ]
+      },
+      "starter_script_path": "aws_cloud_automation.py"
+    },
+    {
+      "step_id": "step_5",
+      "step_name": "Escalate to Management (Timeout)",
+      "description": "If the incident is not resolved within 30 minutes after the initial alert, escalate the incident to management.",
+      "tool": "ServiceNow API, Email",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [
+        "ServiceNow API Access",
+        "Email Sending Permissions"
+      ],
+      "automation_details": "Check the incident status in ServiceNow after 30 minutes. If the incident is still in 'New' or 'Assigned' state, escalate the incident by updating its priority and sending an email notification to the management team.",
+      "starting_points": [
+        "Incident Creation from Step 2",
+        "30-minute Timeout"
+      ],
+      "next_step": null,
+      "estimated_duration": "8 minutes",
+      "dependencies": [
+        "Step 2"
+      ],
+      "access_request_emails": [
+        {
+          "email": "servicenow_admin@company.com",
+          "subject": "Access Request for ServiceNow API - Incident Escalation",
+          "body": "Dear ServiceNow Administrator,\n\nWe are implementing an automated incident response system to improve our incident handling efficiency.\n\nTo enable this automation, we require access to the ServiceNow API with permissions to update incident priority and status for escalation purposes. The automation user will need write access to incident records.\n\nThis access is critical for ensuring timely escalation of unresolved incidents to management.\n\nPlease grant the necessary access to the user account dedicated for this automation.\n\nIf you have any questions, please do not hesitate to contact me.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        },
+        {
+          "email": "email_admin@company.com",
+          "subject": "Access Request for Email Sending - Incident Escalation",
+          "body": "Dear Email Administrator,\n\nWe are implementing an automated incident response system to improve our incident handling efficiency.\n\nTo enable this automation, we require access to an email sending service to notify management about escalated incidents. We need an account/API key with the ability to send emails on behalf of the system.\n\nThis access is critical for ensuring timely escalation of unresolved incidents to management.\n\nPlease grant the necessary access to the email sending service.\n\nIf you have any questions, please do not hesitate to contact me.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "ServiceNow API",
+          "owner_email": "servicenow_admin@company.com"
+        },
+        {
+          "resource": "Email Sending Service",
+          "owner_email": "email_admin@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "requests"
+        ],
+        "recommended_ide": "VS Code with Python extension",
+        "testing_frameworks": [
+          "unittest"
+        ],
+        "deployment_tools": [
+          "Serverless Functions",
+          "Docker"
+        ]
+      },
+      "starter_script_path": "servicenow_automation.py"
+    }
+  ],
+  "total_steps": 5,
+  "estimated_total_duration": "30 minutes",
+  "required_tools": [
+    "AWS CloudWatch",
+    "ServiceNow API",
+    "Slack API",
+    "AWS Auto Scaling",
+    "AWS CloudFormation"
+  ],
   "required_databases": [],
-  "required_resources": []
+  "required_resources": [
+    "ServiceNow API Access",
+    "Slack API Token",
+    "AWS IAM Role"
+  ]
 }

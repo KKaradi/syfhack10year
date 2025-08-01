@@ -1,12 +1,262 @@
 {
-  "automation_id": "error_automation",
-  "title": "Error in Generation",
-  "description": "Failed to generate automation steps",
-  "created_at": "2025-07-31 15:12:51.215833",
-  "steps": [],
-  "total_steps": 0,
-  "estimated_total_duration": "Unknown",
-  "required_tools": [],
-  "required_databases": [],
-  "required_resources": []
+  "automation_id": "payment_processing_v1",
+  "title": "Automated Payment Processing Workflow",
+  "description": "Automates payment processing including fraud detection, payment authorization through Fiserv, updating customer records, sending confirmation emails, and handling failed payments.",
+  "created_at": "2025-08-01 06:43:01.323730",
+  "steps": [
+    {
+      "step_id": "step_1",
+      "step_name": "Receive Payment Request",
+      "description": "Receives payment request from the web portal or mobile app.",
+      "tool": "Web Portal/Mobile App",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [],
+      "automation_details": "API endpoint to receive payment details (customer ID, amount, payment method).",
+      "starting_points": [
+        "Customer initiates payment"
+      ],
+      "next_step": "step_2",
+      "estimated_duration": "1 minute",
+      "dependencies": [],
+      "access_request_emails": [],
+      "resource_owners": [],
+      "development_environment": {
+        "programming_languages": [
+          "JavaScript",
+          "Python"
+        ],
+        "frameworks": [
+          "React",
+          "Flask"
+        ],
+        "recommended_ide": "VS Code with extensions",
+        "testing_frameworks": [
+          "Jest",
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "servicenow_automation.py"
+    },
+    {
+      "step_id": "step_2",
+      "step_name": "Fraud Detection",
+      "description": "Performs real-time fraud detection using a fraud detection system (example: internal rules engine or third-party service).",
+      "tool": "Internal Fraud Detection System (Hypothetical)",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [],
+      "automation_details": "Call the fraud detection API with transaction details. Rule-based detection or call to a machine learning model.",
+      "starting_points": [
+        "Payment request received"
+      ],
+      "next_step": "step_3",
+      "estimated_duration": "2 seconds",
+      "dependencies": [
+        "Fraud Detection System API availability"
+      ],
+      "access_request_emails": [],
+      "resource_owners": [],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "FastAPI",
+          "requests"
+        ],
+        "recommended_ide": "VS Code with extensions",
+        "testing_frameworks": [
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "servicenow_automation.py"
+    },
+    {
+      "step_id": "step_3",
+      "step_name": "Payment Authorization with Fiserv",
+      "description": "Authorizes the payment through Fiserv.",
+      "tool": "Fiserv",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [
+        "Fiserv API Credentials"
+      ],
+      "automation_details": "Call Fiserv API to authorize the payment. Handle success and failure responses.",
+      "starting_points": [
+        "Fraud check passed"
+      ],
+      "next_step": "step_4",
+      "estimated_duration": "30 seconds",
+      "dependencies": [
+        "Fiserv API connectivity"
+      ],
+      "access_request_emails": [
+        {
+          "email": "owner@company.com",
+          "subject": "Access Request for Fiserv API",
+          "body": "Dear Fiserv API Owner,\n\nWe are implementing an automated payment processing workflow to streamline our operations and improve customer experience. As part of this project, we require access to the Fiserv API for payment authorization.\n\nSpecifically, we need the following permissions:\n- Authorization API access\n- Transaction status API access\n\nWe anticipate needing this access immediately. Please let me know if you require any further information from our end.\n\nThank you for your time and assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Fiserv API",
+          "owner_email": "owner@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Java",
+          "Python"
+        ],
+        "frameworks": [
+          "Spring Boot",
+          "requests"
+        ],
+        "recommended_ide": "IntelliJ IDEA or VS Code",
+        "testing_frameworks": [
+          "JUnit",
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "fiserv_payment_automation.py"
+    },
+    {
+      "step_id": "step_4",
+      "step_name": "Update Customer Records",
+      "description": "Updates customer records in the Azure SQL Production database with payment information.",
+      "tool": "Azure SQL",
+      "databases": [
+        "Azure SQL Production"
+      ],
+      "company_resources": [
+        "Azure SQL Production"
+      ],
+      "access_requirements": [
+        "SQL Authentication or Azure AD Integrated Access to Azure SQL Production"
+      ],
+      "automation_details": "Connect to Azure SQL Production database and update relevant tables (e.g., Orders, Payments, Customer) with transaction details.",
+      "starting_points": [
+        "Payment authorization successful"
+      ],
+      "next_step": "step_5",
+      "estimated_duration": "1 minute",
+      "dependencies": [
+        "Azure SQL Production database availability"
+      ],
+      "access_request_emails": [
+        {
+          "email": "owner@company.com",
+          "subject": "Access Request for Azure SQL Production Database",
+          "body": "Dear Azure SQL Production Database Owner,\n\nWe are implementing an automated payment processing workflow to streamline our operations and improve customer experience. As part of this project, we require access to the Azure SQL Production database.\n\nSpecifically, we need the following permissions:\n- Read/Write access to the Orders table\n- Read/Write access to the Payments table\n- Read access to the Customer table\n\nWe anticipate needing this access immediately. Please let me know if you require any further information from our end.\n\nThank you for your time and assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Azure SQL Production",
+          "owner_email": "owner@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python",
+          "C#"
+        ],
+        "frameworks": [
+          "SQLAlchemy",
+          "Entity Framework"
+        ],
+        "recommended_ide": "VS Code or Visual Studio",
+        "testing_frameworks": [
+          "pytest",
+          "NUnit"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "azure_cloud_automation.py"
+    },
+    {
+      "step_id": "step_5",
+      "step_name": "Send Confirmation Email",
+      "description": "Sends a confirmation email to the customer after a 5-minute delay.",
+      "tool": "Email Service (e.g., SendGrid, Azure Communication Services)",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [
+        "Email Service API Credentials"
+      ],
+      "automation_details": "Use a queuing mechanism (e.g., Azure Queue Storage) to delay the email sending by 5 minutes. Retrieve customer email from database and send confirmation email.",
+      "starting_points": [
+        "Customer records updated"
+      ],
+      "next_step": "null",
+      "estimated_duration": "1 minute",
+      "dependencies": [
+        "Email service API availability"
+      ],
+      "access_request_emails": [
+        {
+          "email": "owner@company.com",
+          "subject": "Access Request for Email Service API",
+          "body": "Dear Email Service API Owner,\n\nWe are implementing an automated payment processing workflow to streamline our operations and improve customer experience. As part of this project, we require access to the Email Service API to send confirmation emails to customers.\n\nSpecifically, we need the following permissions:\n- Send email API access\n- Template management API access\n\nWe anticipate needing this access immediately. Please let me know if you require any further information from our end.\n\nThank you for your time and assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Email Service API",
+          "owner_email": "owner@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python",
+          "JavaScript"
+        ],
+        "frameworks": [
+          "Flask",
+          "Node.js"
+        ],
+        "recommended_ide": "VS Code with extensions",
+        "testing_frameworks": [
+          "pytest",
+          "Jest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "servicenow_automation.py"
+    }
+  ],
+  "total_steps": 5,
+  "estimated_total_duration": "33 minutes and 32 seconds",
+  "required_tools": [
+    "Web Portal/Mobile App",
+    "Fiserv",
+    "Azure SQL",
+    "Email Service",
+    "Internal Fraud Detection System (Hypothetical)"
+  ],
+  "required_databases": [
+    "Azure SQL Production"
+  ],
+  "required_resources": [
+    "Azure SQL Production"
+  ]
 }

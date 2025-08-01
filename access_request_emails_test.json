@@ -1,0 +1,77 @@
+{
+  "automation_summary": {
+    "title": "Customer Data Migration from ServiceNow to Azure SQL and Fiserv",
+    "total_steps": 5,
+    "estimated_duration": "30 minutes"
+  },
+  "access_emails": [
+    {
+      "step_name": "Data Extraction from ServiceNow CMDB",
+      "tool": "ServiceNow REST API",
+      "emails": [
+        {
+          "email": "servicenow_admin@company.com",
+          "subject": "Access Request for ServiceNow CMDB Read Access",
+          "body": "Dear ServiceNow Administrator,\n\nI am writing to request read access to the ServiceNow CMDB and API for an automated customer data migration project. This automation will extract customer records for migration to Azure SQL Database and update Fiserv payment profiles.\n\nSpecifically, we require read access to the customer records in the CMDB and API access to query and extract this data.\n\nThis access is needed urgently to meet the project timeline.\n\nPlease let me know if you require any further information.\n\nThank you for your assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "ServiceNow CMDB",
+          "owner_email": "servicenow_admin@company.com"
+        }
+      ]
+    },
+    {
+      "step_name": "Data Transformation and Loading to Azure SQL Database",
+      "tool": "Azure SQL Database API / SQLCMD",
+      "emails": [
+        {
+          "email": "azure_dba@company.com",
+          "subject": "Access Request for Azure SQL Database Write Access",
+          "body": "Dear Azure DBA,\n\nI am writing to request write access to the Azure SQL Database for an automated customer data migration project. This automation will load validated customer data from ServiceNow into the Azure SQL Database.\n\nSpecifically, we require write access to the target tables in the database for data insertion.\n\nThis access is needed urgently to meet the project timeline.\n\nPlease let me know if you require any further information.\n\nThank you for your assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Azure SQL Database",
+          "owner_email": "azure_dba@company.com"
+        }
+      ]
+    },
+    {
+      "step_name": "Update Fiserv Payment Profiles",
+      "tool": "Fiserv API",
+      "emails": [
+        {
+          "email": "fiserv_admin@company.com",
+          "subject": "Access Request for Fiserv API",
+          "body": "Dear Fiserv Administrator,\n\nI am writing to request access to the Fiserv API for an automated customer data migration project. This automation will update customer payment profiles with information migrated from ServiceNow to Azure SQL Database.\n\nSpecifically, we require access to the API endpoints for updating customer profiles.\n\nThis access is needed urgently to meet the project timeline.\n\nPlease let me know if you require any further information.\n\nThank you for your assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Fiserv API",
+          "owner_email": "fiserv_admin@company.com"
+        }
+      ]
+    },
+    {
+      "step_name": "Logging and Monitoring",
+      "tool": "Azure Monitor / Custom Logging",
+      "emails": [
+        {
+          "email": "azure_admin@company.com",
+          "subject": "Access Request for Azure Monitor",
+          "body": "Dear Azure Administrator,\n\nI am writing to request access to Azure Monitor for an automated customer data migration project. This automation will monitor the data migration process and alert administrators of any errors or performance issues.\n\nSpecifically, we require access to view logs and set up alerts for the resources involved in the data migration.\n\nThis access is needed urgently to ensure the smooth operation of the data migration.\n\nPlease let me know if you require any further information.\n\nThank you for your assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Azure Monitor",
+          "owner_email": "azure_admin@company.com"
+        }
+      ]
+    }
+  ]
+}

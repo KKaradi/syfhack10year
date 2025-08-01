@@ -1,12 +1,257 @@
 {
-  "automation_id": "error_automation",
-  "title": "Error in Generation",
-  "description": "Failed to generate automation steps",
-  "created_at": "2025-07-31 15:12:51.015160",
-  "steps": [],
-  "total_steps": 0,
-  "estimated_total_duration": "Unknown",
-  "required_tools": [],
-  "required_databases": [],
-  "required_resources": []
+  "automation_id": "customer_onboarding_001",
+  "title": "Automated Customer Onboarding",
+  "description": "Automates the customer onboarding process, including identity verification, account creation, payment setup, and welcome email sending. Includes error handling with ServiceNow ticket creation.",
+  "created_at": "2025-08-01 06:42:31.972893",
+  "steps": [
+    {
+      "step_id": "step_1",
+      "step_name": "Identity Verification",
+      "description": "Verifies the customer's identity against government databases using the provided identity documents.",
+      "tool": "Third-party Identity Verification Service (simulated, requires integration)",
+      "databases": [
+        "Government Identity Database (simulated)"
+      ],
+      "company_resources": [],
+      "access_requirements": [
+        "API Access to Identity Verification Service"
+      ],
+      "automation_details": "The automation will send customer data and identity documents to the third-party identity verification service via API. It will then wait for a response indicating verification success or failure.",
+      "starting_points": [
+        "New customer registration form submission"
+      ],
+      "next_step": "step_2",
+      "estimated_duration": "5 minutes",
+      "dependencies": [
+        "Successful form submission"
+      ],
+      "access_request_emails": [],
+      "resource_owners": [],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "FastAPI",
+          "requests"
+        ],
+        "recommended_ide": "VS Code with extensions",
+        "testing_frameworks": [
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "azure_cloud_automation.py"
+    },
+    {
+      "step_id": "step_2",
+      "step_name": "Azure AD Account Creation",
+      "description": "Creates a user account in Azure Active Directory for the new customer.",
+      "tool": "Azure Active Directory",
+      "databases": [],
+      "company_resources": [
+        "Azure Active Directory"
+      ],
+      "access_requirements": [
+        "Global Administrator Role in Azure AD"
+      ],
+      "automation_details": "Using the Microsoft Graph API or Azure AD PowerShell module, the automation will create a new user account in Azure AD with the information provided in the registration form. A temporary password will be generated and sent to the customer via email (handled in a later step).",
+      "starting_points": [
+        "Successful identity verification or manual approval"
+      ],
+      "next_step": "step_3",
+      "estimated_duration": "2 minutes",
+      "dependencies": [
+        "step_1"
+      ],
+      "access_request_emails": [],
+      "resource_owners": [
+        {
+          "resource": "Azure Active Directory",
+          "owner_email": "owner@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python",
+          "PowerShell"
+        ],
+        "frameworks": [
+          "requests",
+          "MSAL"
+        ],
+        "recommended_ide": "VS Code with Azure extensions",
+        "testing_frameworks": [
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "azure_cloud_automation.py"
+    },
+    {
+      "step_id": "step_3",
+      "step_name": "Payment Processing Setup",
+      "description": "Sets up payment processing for the customer through Fiserv.",
+      "tool": "Fiserv API",
+      "databases": [],
+      "company_resources": [
+        "Fiserv"
+      ],
+      "access_requirements": [
+        "Fiserv API Credentials",
+        "Access to Fiserv Customer Management API"
+      ],
+      "automation_details": "The automation will use the Fiserv API to create a new customer profile and set up payment processing based on the customer's preferred payment method. This may involve tokenizing credit card information or setting up ACH payments.",
+      "starting_points": [
+        "Azure AD account creation"
+      ],
+      "next_step": "step_4",
+      "estimated_duration": "5 minutes",
+      "dependencies": [
+        "step_2"
+      ],
+      "access_request_emails": [],
+      "resource_owners": [
+        {
+          "resource": "Fiserv",
+          "owner_email": "owner@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python",
+          "Java"
+        ],
+        "frameworks": [
+          "requests",
+          "Spring Boot"
+        ],
+        "recommended_ide": "IntelliJ IDEA",
+        "testing_frameworks": [
+          "pytest",
+          "JUnit"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "fiserv_payment_automation.py"
+    },
+    {
+      "step_id": "step_4",
+      "step_name": "Welcome Email",
+      "description": "Sends a welcome email to the customer with their account details and instructions on how to get started.",
+      "tool": "Email Service (e.g., SendGrid, Azure Communication Services)",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [
+        "Email Service API Credentials"
+      ],
+      "automation_details": "The automation will use an email service API to send a welcome email to the customer's registered email address. The email will contain their username, a temporary password (which they will be prompted to change), and links to relevant resources.",
+      "starting_points": [
+        "Payment processing setup"
+      ],
+      "next_step": "step_5",
+      "estimated_duration": "1 minute",
+      "dependencies": [
+        "step_3"
+      ],
+      "access_request_emails": [],
+      "resource_owners": [],
+      "development_environment": {
+        "programming_languages": [
+          "Python",
+          "JavaScript"
+        ],
+        "frameworks": [
+          "requests",
+          "Node.js"
+        ],
+        "recommended_ide": "VS Code",
+        "testing_frameworks": [
+          "pytest",
+          "Jest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "azure_cloud_automation.py"
+    },
+    {
+      "step_id": "step_5",
+      "step_name": "Error Handling and ServiceNow Ticket Creation",
+      "description": "If any step fails, create a ServiceNow ticket for manual verification and resolution.",
+      "tool": "ServiceNow API",
+      "databases": [],
+      "company_resources": [
+        "ServiceNow"
+      ],
+      "access_requirements": [
+        "ServiceNow API Credentials",
+        "Access to create incidents"
+      ],
+      "automation_details": "Each step will include error handling. If an error occurs, the automation will create a ServiceNow ticket with details about the error, the customer's information, and the failed step. The ticket will be assigned to the appropriate team for manual review and resolution. A Slack notification will be sent to the on-call team.",
+      "starting_points": [
+        "Failure in any previous step"
+      ],
+      "next_step": null,
+      "estimated_duration": "17 minutes",
+      "dependencies": [
+        "All previous steps"
+      ],
+      "access_request_emails": [],
+      "resource_owners": [
+        {
+          "resource": "ServiceNow",
+          "owner_email": "owner@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python",
+          "JavaScript"
+        ],
+        "frameworks": [
+          "requests",
+          "Node.js"
+        ],
+        "recommended_ide": "VS Code",
+        "testing_frameworks": [
+          "pytest",
+          "Jest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "servicenow_automation.py"
+    }
+  ],
+  "total_steps": 5,
+  "estimated_total_duration": "30 minutes",
+  "required_tools": [
+    "Azure Active Directory",
+    "Fiserv API",
+    "Email Service",
+    "ServiceNow API",
+    "Third-party Identity Verification Service"
+  ],
+  "required_databases": [
+    "Government Identity Database (simulated)"
+  ],
+  "required_resources": [
+    "Azure Active Directory",
+    "Fiserv",
+    "ServiceNow"
+  ]
 }

@@ -1,0 +1,282 @@
+{
+  "automation_id": "CDM-20240120-001",
+  "title": "Customer Data Migration from ServiceNow to Azure SQL and Fiserv",
+  "description": "Automated process to extract customer data from ServiceNow CMDB, validate it, migrate it to Azure SQL Database, and update Fiserv payment profiles.",
+  "created_at": "2025-08-01 06:40:58.972158",
+  "steps": [
+    {
+      "step_id": "step_1",
+      "step_name": "Data Extraction from ServiceNow CMDB",
+      "description": "Extract customer records from the ServiceNow CMDB based on the migration request parameters.",
+      "tool": "ServiceNow REST API",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [
+        "ServiceNow CMDB Read Access",
+        "ServiceNow API Access"
+      ],
+      "automation_details": "Use ServiceNow REST API to query the CMDB for customer records. Filter based on the migration request parameters (e.g., date range, customer type). Convert the extracted data into a standardized JSON format.",
+      "starting_points": [
+        "Customer data migration request submitted through ServiceNow"
+      ],
+      "next_step": "step_2",
+      "estimated_duration": "5 minutes",
+      "dependencies": [
+        "Valid ServiceNow credentials",
+        "ServiceNow API enabled"
+      ],
+      "access_request_emails": [
+        {
+          "email": "servicenow_admin@company.com",
+          "subject": "Access Request for ServiceNow CMDB Read Access",
+          "body": "Dear ServiceNow Administrator,\n\nI am writing to request read access to the ServiceNow CMDB and API for an automated customer data migration project. This automation will extract customer records for migration to Azure SQL Database and update Fiserv payment profiles.\n\nSpecifically, we require read access to the customer records in the CMDB and API access to query and extract this data.\n\nThis access is needed urgently to meet the project timeline.\n\nPlease let me know if you require any further information.\n\nThank you for your assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "ServiceNow CMDB",
+          "owner_email": "servicenow_admin@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "requests"
+        ],
+        "recommended_ide": "VS Code with ServiceNow extension",
+        "testing_frameworks": [
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "starter_scripts/servicenow_automation.py"
+    },
+    {
+      "step_id": "step_2",
+      "step_name": "Data Validation",
+      "description": "Validate the extracted customer data against predefined rules to ensure data quality and consistency.",
+      "tool": "Custom Validation Script",
+      "databases": [],
+      "company_resources": [],
+      "access_requirements": [],
+      "automation_details": "Implement a custom script (e.g., in Python) to validate the extracted data. Check for data types, required fields, data formats, and consistency with business rules. Log any validation errors for review and correction. The validation rules can be customized based on the requirements of the Azure SQL Database and Fiserv.",
+      "starting_points": [
+        "Data extracted from ServiceNow"
+      ],
+      "next_step": "step_3",
+      "estimated_duration": "10 minutes",
+      "dependencies": [
+        "Data extraction completed"
+      ],
+      "access_request_emails": [],
+      "resource_owners": [],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "FastAPI"
+        ],
+        "recommended_ide": "VS Code with Python extension",
+        "testing_frameworks": [
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "starter_scripts/servicenow_automation.py"
+    },
+    {
+      "step_id": "step_3",
+      "step_name": "Data Transformation and Loading to Azure SQL Database",
+      "description": "Transform the validated customer data into a format suitable for Azure SQL Database and load it into the database.",
+      "tool": "Azure SQL Database API / SQLCMD",
+      "databases": [
+        "Azure SQL Database"
+      ],
+      "company_resources": [
+        "Azure SQL Database"
+      ],
+      "access_requirements": [
+        "Azure SQL Database Write Access",
+        "Azure Subscription Access"
+      ],
+      "automation_details": "Transform the validated data into the schema required by the Azure SQL Database. Use Azure SQL Database API or SQLCMD to load the data into the database. Implement error handling and retry mechanisms to ensure data integrity. Batch the data into smaller chunks (e.g., 100 customers) to improve performance and stability.",
+      "starting_points": [
+        "Validated customer data"
+      ],
+      "next_step": "step_4",
+      "estimated_duration": "5 minutes",
+      "dependencies": [
+        "Data validation completed",
+        "Azure SQL Database available"
+      ],
+      "access_request_emails": [
+        {
+          "email": "azure_dba@company.com",
+          "subject": "Access Request for Azure SQL Database Write Access",
+          "body": "Dear Azure DBA,\n\nI am writing to request write access to the Azure SQL Database for an automated customer data migration project. This automation will load validated customer data from ServiceNow into the Azure SQL Database.\n\nSpecifically, we require write access to the target tables in the database for data insertion.\n\nThis access is needed urgently to meet the project timeline.\n\nPlease let me know if you require any further information.\n\nThank you for your assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Azure SQL Database",
+          "owner_email": "azure_dba@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python",
+          "SQL"
+        ],
+        "frameworks": [
+          "FastAPI",
+          "pyodbc"
+        ],
+        "recommended_ide": "VS Code with SQL extension",
+        "testing_frameworks": [
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline",
+          "Terraform"
+        ]
+      },
+      "starter_script_path": "starter_scripts/azure_cloud_automation.py"
+    },
+    {
+      "step_id": "step_4",
+      "step_name": "Update Fiserv Payment Profiles",
+      "description": "Update the Fiserv payment profiles with the new customer information from Azure SQL Database.",
+      "tool": "Fiserv API",
+      "databases": [],
+      "company_resources": [
+        "Fiserv"
+      ],
+      "access_requirements": [
+        "Fiserv API Access",
+        "Fiserv API Credentials"
+      ],
+      "automation_details": "Use the Fiserv API to update the payment profiles with the new customer information. Retrieve the customer information from the Azure SQL Database. Map the data fields from the database to the Fiserv API parameters. Implement error handling and retry mechanisms to ensure data integrity. Batch the updates to the Fiserv API to avoid rate limiting. Introduce a 5-minute delay between each batch of 100 customers.",
+      "starting_points": [
+        "Customer data loaded into Azure SQL Database"
+      ],
+      "next_step": "step_5",
+      "estimated_duration": "5 minutes",
+      "dependencies": [
+        "Data loaded into Azure SQL Database",
+        "Fiserv API access"
+      ],
+      "access_request_emails": [
+        {
+          "email": "fiserv_admin@company.com",
+          "subject": "Access Request for Fiserv API",
+          "body": "Dear Fiserv Administrator,\n\nI am writing to request access to the Fiserv API for an automated customer data migration project. This automation will update customer payment profiles with information migrated from ServiceNow to Azure SQL Database.\n\nSpecifically, we require access to the API endpoints for updating customer profiles.\n\nThis access is needed urgently to meet the project timeline.\n\nPlease let me know if you require any further information.\n\nThank you for your assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Fiserv API",
+          "owner_email": "fiserv_admin@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python",
+          "Java"
+        ],
+        "frameworks": [
+          "requests",
+          "Spring Boot"
+        ],
+        "recommended_ide": "VS Code with relevant extensions",
+        "testing_frameworks": [
+          "pytest",
+          "JUnit"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "starter_scripts/fiserv_payment_automation.py"
+    },
+    {
+      "step_id": "step_5",
+      "step_name": "Logging and Monitoring",
+      "description": "Log all actions performed during the migration process and monitor the system for errors.",
+      "tool": "Azure Monitor / Custom Logging",
+      "databases": [],
+      "company_resources": [
+        "Azure Monitor"
+      ],
+      "access_requirements": [
+        "Azure Monitor Access"
+      ],
+      "automation_details": "Implement logging to track all actions performed during the migration process, including data extraction, validation, transformation, and loading. Use Azure Monitor or a custom logging solution to monitor the system for errors and performance issues. Set up alerts to notify administrators of any critical errors. Store logs in a centralized location for auditing and analysis.",
+      "starting_points": [
+        "Fiserv Payment profiles updated"
+      ],
+      "next_step": null,
+      "estimated_duration": "5 minutes",
+      "dependencies": [
+        "All previous steps completed"
+      ],
+      "access_request_emails": [
+        {
+          "email": "azure_admin@company.com",
+          "subject": "Access Request for Azure Monitor",
+          "body": "Dear Azure Administrator,\n\nI am writing to request access to Azure Monitor for an automated customer data migration project. This automation will monitor the data migration process and alert administrators of any errors or performance issues.\n\nSpecifically, we require access to view logs and set up alerts for the resources involved in the data migration.\n\nThis access is needed urgently to ensure the smooth operation of the data migration.\n\nPlease let me know if you require any further information.\n\nThank you for your assistance.\n\nSincerely,\n[Your Name]\n[Your Title]\n[Your Contact Information]"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Azure Monitor",
+          "owner_email": "azure_admin@company.com"
+        }
+      ],
+      "development_environment": {
+        "programming_languages": [
+          "Python"
+        ],
+        "frameworks": [
+          "FastAPI"
+        ],
+        "recommended_ide": "VS Code with Azure extensions",
+        "testing_frameworks": [
+          "pytest"
+        ],
+        "deployment_tools": [
+          "Docker",
+          "CI/CD pipeline"
+        ]
+      },
+      "starter_script_path": "starter_scripts/azure_cloud_automation.py"
+    }
+  ],
+  "total_steps": 5,
+  "estimated_total_duration": "30 minutes",
+  "required_tools": [
+    "ServiceNow REST API",
+    "Custom Validation Script",
+    "Azure SQL Database API / SQLCMD",
+    "Fiserv API",
+    "Azure Monitor"
+  ],
+  "required_databases": [
+    "Azure SQL Database"
+  ],
+  "required_resources": [
+    "Azure SQL Database",
+    "Fiserv",
+    "Azure Monitor"
+  ]
+}
