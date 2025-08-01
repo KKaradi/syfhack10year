@@ -1,5 +1,6 @@
 import os
 import json
+import random
 from jinja2 import Template
 
 # Template for confluence documents
@@ -69,6 +70,13 @@ CONFLUENCE_TEMPLATE = """
                     {% if resource.documentation_url %}
                     <p><strong>Documentation:</strong> <a href="{{ resource.documentation_url }}">{{ resource.documentation_url }}</a></p>
                     {% endif %}
+                    
+                    {% if resource.owner_name or resource.owner_email %}
+                    <p><strong>Owner:</strong> 
+                        {% if resource.owner_name %}{{ resource.owner_name }}{% endif %}
+                        {% if resource.owner_email %} &lt;{{ resource.owner_email }}&gt;{% endif %}
+                    </p>
+                    {% endif %}
                 </li>
                 {% endfor %}
             </ul>
@@ -86,6 +94,12 @@ CONFLUENCE_TEMPLATE = """
                     <p><strong>Description:</strong> {{ db.description }}</p>
                     <p><strong>Connection String:</strong> <code>{{ db.connection }}</code></p>
                     <p class="access-req"><strong>Access:</strong> {{ db.access | join(', ') }}</p>
+                    {% if db.owner_name or db.owner_email %}
+                    <p><strong>Database Owner:</strong> 
+                        {% if db.owner_name %}{{ db.owner_name }}{% endif %}
+                        {% if db.owner_email %} &lt;{{ db.owner_email }}&gt;{% endif %}
+                    </p>
+                    {% endif %}
                 </li>
                 {% endfor %}
             </ul>
@@ -136,7 +150,9 @@ MOCK_DATA = [
                 "access_requirements": ["ServiceNow license", "VPN access", "Multi-factor authentication"],
                 "api_endpoints": ["https://company.service-now.com/api/now/table/incident", "https://company.service-now.com/api/now/table/change_request"],
                 "dependencies": ["Active Directory", "LDAP"],
-                "documentation_url": "https://company.service-now.com/kb"
+                "documentation_url": "https://company.service-now.com/kb",
+                "owner_name": "Sarah Johnson",
+                "owner_email": "sarah.johnson@company.com"
             },
             {
                 "name": "ServiceNow REST API",
@@ -145,7 +161,9 @@ MOCK_DATA = [
                 "access_requirements": ["API user credentials", "OAuth token"],
                 "api_endpoints": ["https://company.service-now.com/api/now/v1", "https://company.service-now.com/api/now/v2"],
                 "dependencies": ["ServiceNow Instance"],
-                "documentation_url": "https://docs.servicenow.com/api"
+                "documentation_url": "https://docs.servicenow.com/api",
+                "owner_name": "Sarah Johnson",
+                "owner_email": "sarah.johnson@company.com"
             }
         ],
         "databases": [
@@ -154,7 +172,9 @@ MOCK_DATA = [
                 "type": "Configuration Database",
                 "description": "Configuration Management Database containing IT assets and relationships",
                 "connection": "servicenow://company.service-now.com/cmdb",
-                "access": ["CMDB reader role", "ITIL license"]
+                "access": ["CMDB reader role", "ITIL license"],
+                "owner_name": "Sarah Johnson",
+                "owner_email": "sarah.johnson@company.com"
             }
         ]
     },
@@ -174,7 +194,9 @@ MOCK_DATA = [
                 "access_requirements": ["Fiserv merchant account", "PCI DSS certification", "API key"],
                 "api_endpoints": ["https://api.fiserv.com/payments/v1/charges", "https://api.fiserv.com/payments/v1/refunds"],
                 "dependencies": ["SSL certificate", "Merchant bank account"],
-                "documentation_url": "https://developer.fiserv.com/product/FirstAPI"
+                "documentation_url": "https://developer.fiserv.com/product/FirstAPI",
+                "owner_name": "Michael Chen",
+                "owner_email": "michael.chen@company.com"
             },
             {
                 "name": "Fiserv Fraud Detection",
@@ -183,7 +205,9 @@ MOCK_DATA = [
                 "access_requirements": ["Fraud protection subscription", "API credentials"],
                 "api_endpoints": ["https://api.fiserv.com/fraud/v1/score", "https://api.fiserv.com/fraud/v1/report"],
                 "dependencies": ["Payment Gateway"],
-                "documentation_url": "https://developer.fiserv.com/fraud"
+                "documentation_url": "https://developer.fiserv.com/fraud",
+                "owner_name": "Michael Chen",
+                "owner_email": "michael.chen@company.com"
             }
         ],
         "databases": [
@@ -192,7 +216,9 @@ MOCK_DATA = [
                 "type": "Transaction Database",
                 "description": "Database storing payment transaction records and audit trails",
                 "connection": "fiserv://secure.fiserv.com/transactions",
-                "access": ["Transaction viewer role", "PCI compliance"]
+                "access": ["Transaction viewer role", "PCI compliance"],
+                "owner_name": "Michael Chen",
+                "owner_email": "michael.chen@company.com"
             }
         ]
     },
@@ -212,7 +238,9 @@ MOCK_DATA = [
                 "access_requirements": ["Azure AD license", "Global administrator role"],
                 "api_endpoints": ["https://graph.microsoft.com/v1.0/users", "https://graph.microsoft.com/v1.0/groups"],
                 "dependencies": ["Microsoft 365 subscription"],
-                "documentation_url": "https://docs.microsoft.com/azure/active-directory"
+                "documentation_url": "https://docs.microsoft.com/azure/active-directory",
+                "owner_name": "Emily Rodriguez",
+                "owner_email": "emily.rodriguez@company.com"
             },
             {
                 "name": "Azure SQL Database",
@@ -221,7 +249,9 @@ MOCK_DATA = [
                 "access_requirements": ["Azure subscription", "SQL Server authentication", "Firewall rules"],
                 "api_endpoints": ["https://management.azure.com/subscriptions/{id}/providers/Microsoft.Sql"],
                 "dependencies": ["Azure Resource Group", "Virtual Network"],
-                "documentation_url": "https://docs.microsoft.com/azure/sql-database"
+                "documentation_url": "https://docs.microsoft.com/azure/sql-database",
+                "owner_name": "David Kim",
+                "owner_email": "david.kim@company.com"
             },
             {
                 "name": "Azure Key Vault",
@@ -380,6 +410,28 @@ ADDITIONAL_TEMPLATES = [
     }
 ]
 
+# Lists for generating random owner names and emails
+FIRST_NAMES = ["Sarah", "Michael", "Emily", "David", "Jessica", "Robert", "Amanda", "James", "Lisa", "Christopher", 
+               "Jennifer", "Matthew", "Ashley", "Daniel", "Michelle", "Andrew", "Stephanie", "Joshua", "Rachel", "Anthony"]
+
+LAST_NAMES = ["Johnson", "Chen", "Rodriguez", "Kim", "Williams", "Brown", "Davis", "Miller", "Wilson", "Moore",
+              "Taylor", "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin", "Garcia", "Martinez", "Robinson"]
+
+DEPARTMENTS = ["IT", "DevOps", "Security", "Database", "Platform", "Cloud", "Infrastructure", "Applications", "Architecture"]
+
+def generate_owner_info(resource_name: str, resource_type: str) -> dict:
+    """Generate realistic owner name and email for a resource."""
+    first_name = random.choice(FIRST_NAMES)
+    last_name = random.choice(LAST_NAMES)
+    
+    # Make email based on name
+    email = f"{first_name.lower()}.{last_name.lower()}@company.com"
+    
+    return {
+        "owner_name": f"{first_name} {last_name}",
+        "owner_email": email
+    }
+
 def generate_confluence_documents():
     """Generate 100 mock confluence HTML documents."""
     
@@ -422,15 +474,25 @@ def generate_confluence_documents():
             "overview": f"Documentation for {template_data['title']} in {env} environment at {company}."
         })
         
+        # Add owner info to resources if not present
+        if "resources" in template_data:
+            for resource in template_data["resources"]:
+                if "owner_name" not in resource:
+                    owner_info = generate_owner_info(resource["name"], resource["type"])
+                    resource.update(owner_info)
+        
         # Add database if not present
         if "databases" not in template_data:
+            db_owner = generate_owner_info(f"{company} {db_type} Database", "database")
             template_data["databases"] = [
                 {
                     "name": f"{company} {db_type} Database",
                     "type": db_type,
                     "description": f"{db_type} database for {env.lower()} environment",
                     "connection": f"{db_type.lower()}://{company.lower()}-{env.lower()}.db.company.com",
-                    "access": ["Database credentials", "VPN access", "Environment permissions"]
+                    "access": ["Database credentials", "VPN access", "Environment permissions"],
+                    "owner_name": db_owner["owner_name"],
+                    "owner_email": db_owner["owner_email"]
                 }
             ]
         

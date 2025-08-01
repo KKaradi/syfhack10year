@@ -22,6 +22,8 @@ class AutomationStep(BaseModel):
     next_step: Optional[str]
     estimated_duration: Optional[str]
     dependencies: List[str]
+    access_request_emails: List[Dict[str, str]]  # List of {"email": "owner@company.com", "subject": "...", "body": "..."}
+    resource_owners: List[Dict[str, str]]  # List of {"resource": "Database Name", "owner_email": "owner@company.com"}
 
 class AutomationResponse(BaseModel):
     automation_id: str
@@ -42,4 +44,6 @@ class CompanyResource(BaseModel):
     access_requirements: List[str]
     documentation_url: Optional[str]
     api_endpoints: List[str]
-    dependencies: List[str] 
+    dependencies: List[str]
+    owner_email: Optional[str]  # Email of the resource/database owner
+    owner_name: Optional[str]   # Name of the resource/database owner 

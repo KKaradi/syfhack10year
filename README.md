@@ -7,9 +7,11 @@ A powerful backend framework that leverages Google's Gemini 2.0 Flash model to a
 - **AI-Powered Analysis**: Uses Gemini 2.0 Flash model to understand automation requirements
 - **Company Resource Integration**: Parses confluence documents to extract available tools, services, and databases
 - **Automated Workflow Generation**: Creates detailed step-by-step automation workflows
+- **Access Request Email Generation**: Automatically generates professional emails to resource owners requesting access
+- **Resource Owner Tracking**: Extracts and tracks owner information for databases and services
 - **JSON Output**: Structured output with all necessary details for implementation
 - **RESTful API**: FastAPI-based backend with comprehensive endpoints
-- **Mock Data Included**: 100 pre-generated confluence documents for testing
+- **Mock Data Included**: 100 pre-generated confluence documents with owner information for testing
 
 ## Architecture
 
@@ -91,6 +93,13 @@ curl -X POST "http://localhost:8000/automation/generate" \
 curl -X GET "http://localhost:8000/resources/summary"
 ```
 
+### 4. Test Access Request Email Generation
+
+```bash
+# Run the email generation test
+python test_access_emails.py
+```
+
 ## Input Parameters
 
 The API accepts the following input parameters:
@@ -124,7 +133,20 @@ The API returns a comprehensive JSON structure:
       "starting_points": ["trigger1", "condition1"],
       "next_step": "step_2",
       "estimated_duration": "5 minutes",
-      "dependencies": ["prerequisite1"]
+      "dependencies": ["prerequisite1"],
+      "access_request_emails": [
+        {
+          "email": "owner@company.com",
+          "subject": "Access Request for Database Name",
+          "body": "Professional email requesting access to the specific resource"
+        }
+      ],
+      "resource_owners": [
+        {
+          "resource": "Database Name",
+          "owner_email": "owner@company.com"
+        }
+      ]
     }
   ],
   "total_steps": 5,
@@ -180,6 +202,8 @@ The framework includes 100 mock confluence documents covering:
 - **Development Tools**: Jira, Slack, Docker, Jenkins, Kubernetes
 - **Databases**: MySQL, PostgreSQL, MongoDB, Redis, Oracle
 
+Each resource includes owner information with contact emails for automatic access request generation.
+
 ## Configuration
 
 ### Environment Variables
@@ -224,6 +248,55 @@ The AI prompts are located in `app/gemini_client.py`. You can modify them to:
 - Add new fields to the automation steps
 - Customize the analysis approach
 - Include additional context
+
+## Access Request Email Generation
+
+The system automatically generates professional access request emails when automation steps require database or resource access. Each email includes:
+
+- **Clear subject line** with the specific resource name
+- **Professional greeting** and introduction
+- **Project context** explaining the automation purpose
+- **Specific access requirements** needed for the automation
+- **Timeline information** if applicable
+- **Contact information** for follow-up questions
+- **Professional closing** with sender details
+
+### Email Template Example
+
+```
+Subject: Access Request for ServiceNow CMDB - Customer Data Migration Automation
+
+Dear Sarah Johnson,
+
+I hope this email finds you well. I am writing to request access to the ServiceNow CMDB for an upcoming automation project.
+
+Project Overview:
+We are implementing an automated customer data migration process that will help streamline our customer onboarding workflow. This automation will read customer records from the ServiceNow CMDB, validate the data, and transfer it to our Azure SQL Database.
+
+Access Requirements:
+- CMDB reader role
+- ITIL license
+- Read access to customer records table
+
+Timeline:
+We plan to begin testing this automation next week and would appreciate access by [date]. The automation will run during off-peak hours to minimize any impact on system performance.
+
+If you have any questions about this request or need additional information about the automation project, please don't hesitate to contact me.
+
+Thank you for your time and assistance.
+
+Best regards,
+[Automation Team Contact]
+```
+
+### Resource Owner Information
+
+Each confluence document now includes:
+- **Owner Name**: Full name of the resource/database owner
+- **Owner Email**: Contact email for access requests
+- **Department**: Responsible team or department
+
+This information is automatically extracted and used to generate targeted access request emails for each automation step.
 
 ## Troubleshooting
 

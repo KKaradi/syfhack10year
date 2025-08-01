@@ -27,7 +27,9 @@ class GeminiClient:
             "access_requirements": ["requirement1", "requirement2"],
             "documentation_url": "url if mentioned",
             "api_endpoints": ["endpoint1", "endpoint2"],
-            "dependencies": ["dependency1", "dependency2"]
+            "dependencies": ["dependency1", "dependency2"],
+            "owner_name": "Owner Name if mentioned",
+            "owner_email": "owner@company.com if mentioned"
         }}
         
         Only return the JSON array, no other text.
@@ -84,7 +86,7 @@ class GeminiClient:
         5. Providing automation details and starting points
         6. Linking steps together with next_step references
         
-        Return ONLY a JSON object with this exact structure:
+                 Return ONLY a JSON object with this exact structure:
         {{
             "automation_id": "unique_id",
             "title": "Automation Title",
@@ -103,7 +105,20 @@ class GeminiClient:
                     "starting_points": ["trigger1", "condition1"],
                     "next_step": "step_2",
                     "estimated_duration": "5 minutes",
-                    "dependencies": ["prerequisite1"]
+                    "dependencies": ["prerequisite1"],
+                    "access_request_emails": [
+                        {{
+                            "email": "owner@company.com",
+                            "subject": "Access Request for Database/Resource Name",
+                            "body": "Professional email requesting access to the specific resource for automation purposes"
+                        }}
+                    ],
+                    "resource_owners": [
+                        {{
+                            "resource": "Database/Resource Name",
+                            "owner_email": "owner@company.com"
+                        }}
+                    ]
                 }}
             ],
             "total_steps": 5,
@@ -114,6 +129,18 @@ class GeminiClient:
         }}
         
         Ensure the workflow is logical, efficient, and uses the available company resources appropriately.
+        
+        For each step that requires database or resource access:
+        1. Extract the owner email from the available company resources
+        2. Generate a professional access request email with:
+           - Clear subject line mentioning the specific resource
+           - Professional greeting
+           - Brief explanation of the automation project
+           - Specific access requirements needed
+           - Timeline/urgency if applicable
+           - Contact information for questions
+           - Professional closing
+        3. Include the resource name and owner email in the resource_owners array
         """
         
         try:
